@@ -1,39 +1,56 @@
 //Vars 
 let boardArray 
-let bankArray 
+let bankArray //this might not be needed
 let player 
-let piece 
+let current 
 
 //Cached Element Refs
-let board = document.querySelectorAll('.circle')
+let board = document.querySelectorAll('.el')
 let bank = document.querySelectorAll('.piece')
+let message = document.getElementById('msg')
+let temp = document.getElementById('temp')
 
 //Event Listeners
-bank.addEventListener('click', select())
-board.addEventListener('click', place())
+bank.forEach(piece => {piece.addEventListener('click', select) })
+board.forEach(el => {el.addEventListener('click', place) })
+temp.addEventListener('click', remove)
+
+function remove(e){
+  console.log('remove temp clicked')
+  console.log(e.target)
+  temp.removeChild(temp.firstChild)
+}
 
 //On load 
-function init() {
+init()
+
+function init(){
+  player = true
   boardArray = new Array(16).fill(null)
-  // clears board display 
-  // fills piece bank array 
-  // fills piece bank display
-  // prompt = P1 select for P2
+  bankArray = new Array(16).fill(1)
+  message.textContent = 'Player 1 select a piece for Player 2' 
 }
+
 //Functions
-// select()
-// on bank click->selects piece to play 
-//        removes selected piece from bank array 
-//        removes selected piece from bank display
-//        displays piece in queue area
+function select(e){
+  console.log(e.target)
+  temp.appendChild(e.target.cloneNode(true))
+  e.target.style.visibility = 'hidden'
+  console.log(current)
+}
 
-// place()
-//  on board click ->places piece on board 
-//          stores piece in board array
-//          displays piece on board
-//  calls checkwinner()
+function place(){
+  console.log('board clicked')
+  //boardArray[]
+  //board.appendChild()
+  
+  //on board click ->places piece on board 
+  //stores piece in board array
+  //displays piece on board
+  //calls checkwinner()
+}
 
-// checkWinner()
+function checkWinner(){
 //   winner = checkBoard()
 
 //   if no winner-> 
@@ -47,8 +64,8 @@ function init() {
 //   if no winner & bank = empty
 //          prompt = tie message 
 //          add replay 
-
-// checkBoard
+}
+function checkBoard(){
 // for these combos
 //  loop horizontal elements of board 
 //  loop vertical elements of board 
@@ -56,3 +73,4 @@ function init() {
 // ->check if pieces stored there belong to the same class
 // (height, top, shape, color) 
 //  if true, return winner is true, else winner is false
+}
