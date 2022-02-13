@@ -1,39 +1,19 @@
-#board {
-  margin: 57px 49px 49px 57px; 
-  /* this needs word to align */
-  border: 1px solid black; 
-  width: 360px; 
-  height: 360px;
-  border-radius: 50%;
-  padding: 0px;
-  display: inline-block;
-  position: relative
-}
 
 #grid {
-  box-sizing: border-box;
-  margin: 50px;
   border: 1px solid black;
-  width: 71%;
-  height: 71%;
-  transform: rotate(45deg);
-  display: flex;
-  align-items: center; 
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto auto auto auto; 
+  grid-gap: 10px;
+  margin: 50px;
+  height: 50vh; 
+  width: 50vh;
 }
 
-.row {
-  clear: left;
-}
-
-.el {
+.cell {
   border: 1px solid black;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  float: left;
-  margin: 5px; 
-  padding: 0;
+  height: 10vh;
+  width: 10vh; 
 }
 
 .piece {
@@ -44,10 +24,4 @@
   float: left;
   margin: 5px; 
   padding: 0;
-}
-.light > div {
-  background-color:rgb(196, 219, 255);
-}
-.dark > div {
-  background-color:rgb(222, 255, 196);
 }
