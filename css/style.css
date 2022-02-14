@@ -1,13 +1,37 @@
-
+h1 {
+  text-align: center;
+  color: white
+}
+p {
+  font-size: large;
+  color: white
+}
+body{
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  background-color: black;
+}
 #grid {
-  border: 1px solid black;
+  border: 1px solid white;
   display: grid;
+  justify-content: center;
+  align-content: center;
   grid-template-columns: auto auto auto auto; 
   grid-gap: 1em;
   padding: 1em;
   margin: 50px;
   height: 50vh; 
   width: 50vh;
+  transform: rotate(45deg)
+}
+
+#bank {
+  width: 75vh;
+  justify-content: center; 
+  align-content: center;
 }
 
 .cell {
@@ -15,9 +39,11 @@
   border-radius: 50%;
   height: 10vh;
   width: 10vh; 
+  background-color: blue;
 }
 
 .piece {
+  background-color: red;
   border: 1px solid black;
   border-radius: 50%;
   width: 50px;
