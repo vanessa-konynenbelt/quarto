@@ -20,16 +20,26 @@ class Game {
     for(let i=0; i<16; i++){
       let piece = new Piece(pieceInfoArray[i])
       this.stylePieces(piece)
+      console.log(piece.div)
       bank.appendChild(piece.div)
     }
     return bank
   }
 
   stylePieces(piece){
-    if(piece.div.pieceInfo.color === 'dark'){
-      piece.div.classList.add('dark')
+    for(let i=0; i<critArray.length; i++){
+      if(i===0){ 
+        piece.div.pieceInfo.color === 'dark' ? piece.div.classList.add('dark') : piece.div.classList.add('light')
+      }if(i===1){
+        piece.div.pieceInfo.height === 'tall' ? piece.div.classList.add('tall') : piece.div.classList.add('short')
+      }if(i===2){
+        piece.div.pieceInfo.top === 'flat' ? piece.div.classList.add('flat') : piece.div.classList.add('indent')
+      }if(i===3){
+        piece.div.pieceInfo.shape === 'circle' ? piece.div.classList.add('circle') : piece.div.classList.add('square')
+      }
     }
   }
+
   constructBoard(){
     let grid = document.getElementById('grid')
     for(let i=0; i<16; i++){
@@ -46,12 +56,11 @@ class Game {
   }
 
   checkWin(){
-    const critArray = ['color', 'height', 'top', 'shape']
     foursArray.forEach(array =>{
       critArray.forEach(crit =>{
         console.log(this.board[array[0]].pieceInfo[crit]) //but this isn't
         if(this.board[array[0]].pieceInfo.color === this.board[array[1]].pieceInfo.color){
-           this.message = 'you win'
+           this.message.textContent = 'you win'
         }
       })
     })
@@ -63,7 +72,6 @@ class Piece {
     this.div = document.createElement('div')
     this.div.pieceInfo = pieceInfo
     this.div.addEventListener('click', this.select)
-    this.div.className = 'piece'
   }
   select(){ //'this' refers to piece.div
     game.setActivePiece(this.pieceInfo)
@@ -97,6 +105,7 @@ class PieceInfo {
 }
 
 //Consts_________________________________ 
+const critArray = ['color', 'height', 'top', 'shape']
 
 const pieceInfoArray = [
   new PieceInfo('dark', 'tall', 'flat', 'circle'),
