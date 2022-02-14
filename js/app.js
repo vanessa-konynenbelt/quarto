@@ -1,57 +1,55 @@
-let message = document.getElementById('msg')
-message.textContent = 'Player 1 select a piece for Player 2'
+
+let boardArray = []
+
+//Classes _________________________________
 
 class Game {
   constructor(){
+    this.init()
     this.unusedPieces = this.constructPiecesArray()
     this.board = this.constructBoard()
+    
+  }
+
+  init(){
+    this.message = document.getElementById('msg')
+    this.message.textContent = 'Player 1 select a piece for Player 2'
   }
 
   constructPiecesArray(){
-    //TODO 
     let bank = document.getElementById('bank')
     for(let i=0; i<16; i++){
       let piece = new Piece(pieceInfoArray[i])
-      piece.addClassName
       bank.appendChild(piece.div)
     }
-    console.log(bank)
     return bank
   }
   constructBoard(){
     let grid = document.getElementById('grid')
-    let boardArray = []
     for(let i=0; i<16; i++){
-      let cell = new Cell()
+      let cell = new Cell(new PieceInfo('none', 'none', 'none', 'none'),)
       grid.appendChild(cell.div)
       boardArray.push(cell.div)
     }
     console.log(boardArray)
     return boardArray
   }
-  checkWin(){
-    //TODO
-    console.log('we are checking win')
-    console.log(this.board)
-    //const critArray = ['color', 'height', 'top', 'shape']
-    console.log(`the board at index 0 is `)
-    console.log(this.board[0].pieceInfo)
-    foursArray.forEach(array =>{
-     // critArray.forEach(crit =>{
-       console.log(this.board[array[0]].pieceInfo.color)
-       console.log(this.board[array[0]].pieceInfo.color)
-        if(this.board[array[0]].pieceInfo.color === this.board[array[1]].pieceInfo.color){
-           message = 'you win'
-        }
-     // })
-    })
-  }
-
   setActivePiece(pieceInfo){
     this.activePiece = pieceInfo
     console.log(this.activePiece)
   }
 
+  checkWin(){
+    const critArray = ['color', 'height', 'top', 'shape']
+    foursArray.forEach(array =>{
+      critArray.forEach(crit =>{
+        console.log(this.board[array[0]].pieceInfo[crit]) //but this isn't
+        if(this.board[array[0]].pieceInfo.color === this.board[array[1]].pieceInfo.color){
+           this.message = 'you win'
+        }
+      })
+    })
+  }
 }
 
 class Piece {
@@ -60,12 +58,24 @@ class Piece {
     this.div.pieceInfo = pieceInfo
     this.div.addEventListener('click', this.select)
     this.div.className = 'piece'
-    console.log(`piece constructed! ${this.div.pieceInfo.color}`)
   }
   select(){
-    console.log(this)
-    console.log(`piece selected! ${this.pieceInfo}`)
     game.setActivePiece(this.pieceInfo)
+  }
+}
+
+class Cell {
+  constructor(pieceInfo){ //'this' refers to cell
+    this.div = document.createElement('div')
+    this.div.pieceInfo = pieceInfo
+    this.div.addEventListener('click', this.place)
+    this.div.className = 'cell'
+  }
+  place(){ //'this' refers to cell.div
+    //TODO remove piece from unusedPieces
+    //TODO spot is not already full
+    this.pieceInfo = game.activePiece
+    game.checkWin()
   }
 }
 
@@ -78,20 +88,7 @@ class PieceInfo {
   }
 }
 
-class Cell {
-  constructor(){ //'this' refers to cell
-    this.div = document.createElement('div')
-    this.div.addEventListener('click', this.place)
-    this.div.className = 'cell'
-  }
-  place(){ //'this' refers to cell.div
-    this.pieceInfo = game.activePiece
-    console.log(`piece placed! ${this.pieceInfo}`)
-   //TODO remove piece from unusedPieces
-   //TODO spot is not already full
-    game.checkWin()
-  }
-}
+//Consts_________________________________ 
 
 const pieceInfoArray = [
   new PieceInfo('dark', 'tall', 'flat', 'circle'),

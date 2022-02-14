@@ -39,7 +39,7 @@ body{
   border-radius: 50%;
   height: 10vh;
   width: 10vh; 
-  background-color: blue;
+  background-color: white;
 }
 
 .piece {
@@ -51,4 +51,7 @@ body{
   float: left;
   margin: 5px; 
   padding: 0;
+}
+div > {
+  
 }
