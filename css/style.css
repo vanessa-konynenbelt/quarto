@@ -3,7 +3,8 @@
   border: 1px solid black;
   display: grid;
   grid-template-columns: auto auto auto auto; 
-  grid-gap: 10px;
+  grid-gap: 1em;
+  padding: 1em;
   margin: 50px;
   height: 50vh; 
   width: 50vh;
