@@ -8,7 +8,6 @@ class Game {
     this.init()
     this.unusedPieces = this.constructPiecesArray()
     this.board = this.constructBoard()
-    
   }
 
   init(){
@@ -20,9 +19,16 @@ class Game {
     let bank = document.getElementById('bank')
     for(let i=0; i<16; i++){
       let piece = new Piece(pieceInfoArray[i])
+      this.stylePieces(piece)
       bank.appendChild(piece.div)
     }
     return bank
+  }
+
+  stylePieces(piece){
+    if(piece.div.pieceInfo.color === 'dark'){
+      piece.div.classList.add('dark')
+    }
   }
   constructBoard(){
     let grid = document.getElementById('grid')
@@ -53,14 +59,16 @@ class Game {
 }
 
 class Piece {
-  constructor(pieceInfo){
+  constructor(pieceInfo){ //'this' refers to piece
     this.div = document.createElement('div')
     this.div.pieceInfo = pieceInfo
     this.div.addEventListener('click', this.select)
     this.div.className = 'piece'
   }
-  select(){
+  select(){ //'this' refers to piece.div
     game.setActivePiece(this.pieceInfo)
+    this.classList.add('active')
+    console.log(this)
   }
 }
 
