@@ -50,16 +50,16 @@ class Game {
     console.log(boardArray)
     return boardArray
   }
-  setActivePiece(pieceInfo){
-    this.activePiece = pieceInfo
+  setActivePiece(activePiece){
+    this.activePiece = activePiece
     console.log(this.activePiece)
   }
 
   checkWin(){
     foursArray.forEach(array =>{
       critArray.forEach(crit =>{
-        console.log(this.board[array[0]].pieceInfo[crit]) //but this isn't
-        if(this.board[array[0]].pieceInfo.color === this.board[array[1]].pieceInfo.color){
+        if(this.board[array[0]].pieceInfo[crit] === this.board[array[1]].pieceInfo[crit]){
+          console.log
            this.message.textContent = 'you win'
         }
       })
@@ -74,7 +74,7 @@ class Piece {
     this.div.addEventListener('click', this.select)
   }
   select(){ //'this' refers to piece.div
-    game.setActivePiece(this.pieceInfo)
+    game.setActivePiece(this)
     this.classList.add('active')
     console.log(this)
   }
@@ -83,14 +83,16 @@ class Piece {
 class Cell {
   constructor(pieceInfo){ //'this' refers to cell
     this.div = document.createElement('div')
+    this.div.className = 'cell'
     this.div.pieceInfo = pieceInfo
     this.div.addEventListener('click', this.place)
-    this.div.className = 'cell'
   }
   place(){ //'this' refers to cell.div
     //TODO remove piece from unusedPieces
     //TODO spot is not already full
-    this.pieceInfo = game.activePiece
+    console.log(game.activePiece)
+    this.className = game.activePiece.classList
+    //this = game.activePiece.cloneNode(true)
     game.checkWin()
   }
 }
