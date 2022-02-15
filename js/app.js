@@ -1,4 +1,4 @@
-
+//Vars
 let boardArray = []
 
 //Classes _________________________________
@@ -101,10 +101,10 @@ class Cell {
     this.div.addEventListener('click', this.place)
   }
   place(){ //'this' refers to cell.div
-    //TODO remove piece from unusedPieces
     //TODO spot is not already full
     this.className = game.activePiece.classList
     this.pieceInfo = game.activePiece.pieceInfo 
+    game.activePiece.visibility = 'hidden' //this doesn't work. Needs help
     console.log(game.activePiece.pieceInfo)
     game.checkWin()
   }
