@@ -20,21 +20,31 @@ class Game {
     for(let i=0; i<16; i++){
       let piece = new Piece(pieceInfoArray[i])
       this.stylePieces(piece)
-      console.log(piece.div)
       bank.appendChild(piece.div)
     }
     return bank
   }
 
   stylePieces(piece){
-    for(let i=0; i<critArray.length; i++){
-      if(i===0){ 
-        piece.div.pieceInfo.color === 'dark' ? piece.div.classList.add('dark') : piece.div.classList.add('light')
+    for(let i=0; i<3; i++){
+      if(i===0){
+        if(piece.div.pieceInfo.color === 'dark'){
+          if(piece.div.pieceInfo.top === 'flat'){
+            piece.div.classList.add('dark-flat') 
+          }else{ 
+            piece.div.classList.add('dark-indent')
+          }
+        }else{ //light 
+          if(piece.div.pieceInfo.top === 'flat'){
+            piece.div.classList.add('light-flat') 
+          }else{
+            piece.div.classList.add('light-indent') 
+          }
+        }
+      
       }if(i===1){
         piece.div.pieceInfo.height === 'tall' ? piece.div.classList.add('tall') : piece.div.classList.add('short')
       }if(i===2){
-        piece.div.pieceInfo.top === 'flat' ? piece.div.classList.add('flat') : piece.div.classList.add('indent')
-      }if(i===3){
         piece.div.pieceInfo.shape === 'circle' ? piece.div.classList.add('circle') : piece.div.classList.add('square')
       }
     }
@@ -47,19 +57,21 @@ class Game {
       grid.appendChild(cell.div)
       boardArray.push(cell.div)
     }
-    console.log(boardArray)
     return boardArray
   }
   setActivePiece(activePiece){
     this.activePiece = activePiece
-    console.log(this.activePiece)
   }
 
   checkWin(){
-    foursArray.forEach(array =>{
+    console.log(`the board`)
+    console.log(this.board)
+    foursArray.forEach((array) =>{
       critArray.forEach(crit =>{
-        if(this.board[array[0]].pieceInfo[crit] === this.board[array[1]].pieceInfo[crit]){
-          console.log
+        if(this.board[array[0]].pieceInfo[crit] === this.board[array[1]].pieceInfo[crit] && this.board[array[0]].pieceInfo[crit] !== 'none' && 
+          this.board[array[1]].pieceInfo[crit] === this.board[array[2]].pieceInfo[crit] && this.board[array[1]].pieceInfo[crit] !== 'none' && 
+          this.board[array[2]].pieceInfo[crit] !== 'none' &&
+          this.board[array[2]].pieceInfo[crit] === this.board[array[3]].pieceInfo[crit] && this.board[array[3]].pieceInfo[crit] !== 'none'){
            this.message.textContent = 'you win'
         }
       })
@@ -76,6 +88,7 @@ class Piece {
   select(){ //'this' refers to piece.div
     game.setActivePiece(this)
     this.classList.add('active')
+    console.log(`active piece is`)
     console.log(this)
   }
 }
@@ -90,9 +103,9 @@ class Cell {
   place(){ //'this' refers to cell.div
     //TODO remove piece from unusedPieces
     //TODO spot is not already full
-    console.log(game.activePiece)
     this.className = game.activePiece.classList
-    //this = game.activePiece.cloneNode(true)
+    this.pieceInfo = game.activePiece.pieceInfo 
+    console.log(game.activePiece.pieceInfo)
     game.checkWin()
   }
 }
