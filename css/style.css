@@ -15,6 +15,16 @@ body{
   justify-content: center;
   background-color: grey;
 }
+
+#bank {
+  margin: 20px;
+  display: flex;
+  width: 100vh;
+  height: 100vh;
+  justify-content: center; 
+  align-content: center;
+}
+
 #grid {
   border: 1px solid white;
   display: grid;
@@ -27,15 +37,6 @@ body{
   height: 50vh; 
   width: 50vh;
   /* transform: rotate(45deg) */
-}
-
-#bank {
-  margin: 20px;
-  display: flex;
-  width: 100vh;
-  height: 100vh;
-  justify-content: center; 
-  align-content: center;
 }
 
 .cell {
