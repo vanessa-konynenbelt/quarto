@@ -61,6 +61,7 @@ class Game {
   }
   setActivePiece(activePiece){
     this.activePiece = activePiece
+    //this.activePiece.style.visibility = 'hidden' ... this works
   }
 
   checkWin(){
@@ -101,11 +102,16 @@ class Cell {
     this.div.addEventListener('click', this.place)
   }
   place(){ //'this' refers to cell.div
-    //TODO spot is not already full
-    this.className = game.activePiece.classList
-    this.pieceInfo = game.activePiece.pieceInfo 
-    game.activePiece.visibility = 'hidden' //this doesn't work. Needs help
-    console.log(game.activePiece.pieceInfo)
+    console.log(this.pieceInfo)
+    if(this.pieceInfo.color === 'none'){ //if cell is empty
+      this.className = game.activePiece.classList
+      this.pieceInfo = game.activePiece.pieceInfo 
+      this.classList.remove('active')
+      this.className += 'cell'   //'full-cell'
+    //  game.activePiece.visibility = 'hidden' //this doesn't work. Needs help
+      //console.log('this is game active piece')
+      //console.log(game.activePiece)
+    }
     game.checkWin()
   }
 }
