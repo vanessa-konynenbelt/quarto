@@ -1,5 +1,6 @@
 //Vars
 let boardArray = []
+let player = true //p1 = true, p2 = false
 
 //Classes _________________________________
 
@@ -9,9 +10,9 @@ class Game {
     this.unusedPieces = this.constructPiecesArray()
     this.board = this.constructBoard()
   }
+   message = document.getElementById('msg')
 
-  init(){
-    this.message = document.getElementById('msg')
+  init(){ 
     this.message.textContent = 'Player 1 select a piece for Player 2'
   }
 
@@ -61,7 +62,7 @@ class Game {
   }
   setActivePiece(activePiece){
     this.activePiece = activePiece
-    //this.activePiece.style.visibility = 'hidden' ... this works
+    //this.activePiece.style.visibility = 'hidden' //... this works
   }
 
   checkWin(){
@@ -73,7 +74,7 @@ class Game {
           this.board[array[1]].pieceInfo[crit] === this.board[array[2]].pieceInfo[crit] && this.board[array[1]].pieceInfo[crit] !== 'none' && 
           this.board[array[2]].pieceInfo[crit] !== 'none' &&
           this.board[array[2]].pieceInfo[crit] === this.board[array[3]].pieceInfo[crit] && this.board[array[3]].pieceInfo[crit] !== 'none'){
-           this.message.textContent = 'you win'
+           this.message.textContent = 'Player X wins!'
         }
       })
     })
@@ -91,6 +92,8 @@ class Piece {
     this.classList.add('active')
     console.log(`active piece is`)
     console.log(this)
+    player = !player
+    player ? game.message.textContent = 'Player 1 place selected' : game.message.textContent = 'Player 2 place selected'
   }
 }
 
@@ -107,10 +110,12 @@ class Cell {
       this.className = game.activePiece.classList
       this.pieceInfo = game.activePiece.pieceInfo 
       this.classList.remove('active')
-      this.className += 'cell'   //'full-cell'
-    //  game.activePiece.visibility = 'hidden' //this doesn't work. Needs help
-      //console.log('this is game active piece')
-      //console.log(game.activePiece)
+      this.className += ' cell'   //'full-cell'
+      game.activePiece.style.visibility = 'hidden' //this doesn't work. Needs HELP
+      console.log('this is game active piece')
+      console.log(game.activePiece)
+
+      player ? game.message.textContent = 'Player 1 select a piece for Player 2' : game.message.textContent = 'Player 2 select a piece for Player 1'
     }
     game.checkWin()
   }
