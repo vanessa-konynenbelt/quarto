@@ -10,6 +10,16 @@ p {
   margin: 20px;
   font-family: 'Roboto', sans-serif;
 }
+.p1 {
+  font-style: bold;
+  font-size: 60px;
+  color: rgb(255, 255, 107);
+}
+.p2 {
+  font-style: bold;
+  font-size: 60px;
+  color: rgb(8, 255, 255);
+}
 body{
   display: flex; 
   flex-direction: column;

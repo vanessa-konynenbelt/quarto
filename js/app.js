@@ -13,8 +13,7 @@ class Game {
    message = document.getElementById('msg')
 
   init(){ 
-    this.message.textContent = 'Player 1 select a piece for Player 2'
-    this.message.style.color = 'dark orange'
+    this.message.innerHTML= '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>'
   }
 
   constructPiecesArray(){
@@ -88,7 +87,7 @@ class Game {
           this.board[array[1]].pieceInfo[crit] === this.board[array[2]].pieceInfo[crit] && this.board[array[1]].pieceInfo[crit] !== 'none' && 
           this.board[array[2]].pieceInfo[crit] !== 'none' &&
           this.board[array[2]].pieceInfo[crit] === this.board[array[3]].pieceInfo[crit] && this.board[array[3]].pieceInfo[crit] !== 'none'){
-            player ? game.message.textContent = 'Player 1 wins!' : game.message.textContent = 'Player 2 wins!'
+            player ? game.message.innerHTML = '<span class ="p1">Player 1</span> wins!' : game.message.innerHTML = '<span class = "p2">Player 2</span> wins!'
             confetti.start(2000)
         }
       })
@@ -108,7 +107,7 @@ class Piece {
     this.classList.add('active')
     console.log(game.activePiece)
     player = !player
-    player ? game.message.textContent = 'Player 1 place selected' : game.message.textContent = 'Player 2 place selected'
+    player ? game.message.innerHTML = '<span class="p1">Player 1</span> place selected' : game.message.innerHTML = '<span class="p2">Player 2</span> place selected'
   }
 }
 
@@ -126,7 +125,7 @@ class Cell {
         this.pieceInfo = game.activePiece.pieceInfo 
         this.classList.remove('active')  
         game.activePiece.style.visibility = 'hidden'  
-        player ? game.message.textContent = 'Player 1 select a piece for Player 2' : game.message.textContent = 'Player 2 select a piece for Player 1'
+        player ? game.message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : game.message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
       }
       game.checkWin()
     }
