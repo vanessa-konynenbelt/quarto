@@ -2,23 +2,43 @@
 let boardArray = []
 let player = true //p1 = true, p2 = false
 let flag = true
-//Classes _________________________________
 
+//Cached Elements________________
+let message = document.getElementById('msg')
+let redBank = document.getElementById('red-bank')
+let blueBank = document.getElementById('blue-bank')
+let overlay = document.getElementById('overlay')
+let board = document.getElementById('board')
+let replay = document.getElementById('replay')
+let body = document.querySelector('body')
+
+
+//Classes _________________________________
 class Game {
   constructor(){
     this.init()
     this.constructPiecesArray()
-    this.board = this.constructBoard()
+    this.constructBoard()
+    this.constructOverlay()
   }
-   message = document.getElementById('msg')
 
   init(){ 
-    this.message.innerHTML= '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>'
+    message.innerHTML= '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>'
+    replay.style.visibility= 'hidden'
+  }
+
+  clear(){
+    boardArray.forEach(el => { 
+      el.removeAttribute('class') //clear styling
+      critArray.forEach(crit=> {
+        el.pieceInfo[crit] = 'none' //clear info 
+      })
+    })
+    console.log(boardArray)
+    this.init() //this doesn't work 
   }
 
   constructPiecesArray(){
-    let redBank = document.getElementById('red-bank')
-    let blueBank = document.getElementById('blue-bank')
     for(let i=0; i<8; i++){
       let piece = new Piece(pieceInfoArray[i])
       this.stylePieces(piece)
@@ -34,13 +54,13 @@ class Game {
   stylePieces(piece){
     for(let i=0; i<3; i++){
       if(i===0){
-        if(piece.div.pieceInfo.color === 'dark'){
+        if(piece.div.pieceInfo.color === 'dark'){ 
           if(piece.div.pieceInfo.top === 'flat'){
             piece.div.classList.add('dark-flat') 
           }else{ 
             piece.div.classList.add('dark-indent')
           }
-        }else{ //light 
+        }else{ 
           if(piece.div.pieceInfo.top === 'flat'){
             piece.div.classList.add('light-flat') 
           }else{
@@ -55,23 +75,21 @@ class Game {
     }
   }
 
-  constructBoard(){
-    let grid = document.getElementById('grid')
-    let grid2 = document.getElementById('grid2')
-
+  constructOverlay(){
     for(let i=0; i<16; i++){
-      //overlayed listener cells 
       let cell = new Cell(new PieceInfo('none', 'none', 'none', 'none'))
       boardArray.push(cell.div)
-      grid.appendChild(cell.div)
+      overlay.appendChild(cell.div)
       cell.div.classList.add('cell')
-
-      //static white cell board 
-      let whiteCell = document.createElement('div')
-      whiteCell.classList.add('whiteCell') 
-      grid2.appendChild(whiteCell)
     }
-    return boardArray
+  }
+
+  constructBoard(){
+    for(let i=0; i<16; i++){
+      let boardCell = document.createElement('div')
+      boardCell.classList.add('boardCell') 
+      board.appendChild(boardCell)
+    }
   }
 
   setActivePiece(activePiece){
@@ -79,19 +97,38 @@ class Game {
   }
 
   checkWin(){
-    console.log(`the board`)
-    console.log(this.board)
     foursArray.forEach((array) =>{
       critArray.forEach(crit =>{
-        if(this.board[array[0]].pieceInfo[crit] === this.board[array[1]].pieceInfo[crit] && this.board[array[0]].pieceInfo[crit] !== 'none' && 
-          this.board[array[1]].pieceInfo[crit] === this.board[array[2]].pieceInfo[crit] && this.board[array[1]].pieceInfo[crit] !== 'none' && 
-          this.board[array[2]].pieceInfo[crit] !== 'none' &&
-          this.board[array[2]].pieceInfo[crit] === this.board[array[3]].pieceInfo[crit] && this.board[array[3]].pieceInfo[crit] !== 'none'){
-            player ? game.message.innerHTML = '<span class ="p1">Player 1</span> wins!' : game.message.innerHTML = '<span class = "p2">Player 2</span> wins!'
-            confetti.start(2000)
+        if(
+          boardArray[array[0]].pieceInfo[crit] === boardArray[array[1]].pieceInfo[crit] && 
+          boardArray[array[1]].pieceInfo[crit] === boardArray[array[2]].pieceInfo[crit] && 
+          boardArray[array[2]].pieceInfo[crit] === boardArray[array[3]].pieceInfo[crit] &&
+          boardArray[array[0]].pieceInfo[crit] !== 'none' && 
+          boardArray[array[1]].pieceInfo[crit] !== 'none' && 
+          boardArray[array[2]].pieceInfo[crit] !== 'none' && 
+          boardArray[array[3]].pieceInfo[crit] !== 'none'
+          ){
+            this.displayWin()
         }
       })
     })
+  }
+
+  displayWin(){
+    flag = false
+    console.log(boardArray)
+    if(player){
+      message.innerHTML = '<span class ="p1">Player 1</span> wins!' 
+      body.style.backgroundColor = 'yellow' 
+      body.style.backgroundImage = "radial-gradient(circle, rgba(255, 255, 118, 0.933), rgba(255, 255, 147, 0.652), rgba(255, 255, 0, 0.632))"
+    }else{
+      message.innerHTML = '<span class = "p2">Player 2</span> wins!'
+      body.style.backgroundColor = 'rgb(8, 255, 255)' 
+      body.style.backgroundImage = "radial-gradient(circle, rgb(130, 252, 252), rgb(128, 255, 255), rgb(49, 177, 177))"
+    }
+    replay.style.visibility= 'visible'
+    replay.addEventListener('click', this.clear)
+    confetti.start(4000)
   }
 }
 
@@ -105,11 +142,11 @@ class Piece {
     flag = true
     game.setActivePiece(this)
     this.classList.add('active')
-    console.log(game.activePiece)
     player = !player
-    player ? game.message.innerHTML = '<span class="p1">Player 1</span> place selected' : game.message.innerHTML = '<span class="p2">Player 2</span> place selected'
+    player ? message.innerHTML = '<span class="p1">Player 1</span> place selected' : message.innerHTML = '<span class="p2">Player 2</span> place selected'
   }
 }
+
 
 class Cell {
   constructor(pieceInfo){ //'this' refers to cell
@@ -125,12 +162,13 @@ class Cell {
         this.pieceInfo = game.activePiece.pieceInfo 
         this.classList.remove('active')  
         game.activePiece.style.visibility = 'hidden'  
-        player ? game.message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : game.message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
+        player ? message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
       }
       game.checkWin()
     }
   }
 }
+
 
 class PieceInfo {
   constructor(color, height, top, shape){
