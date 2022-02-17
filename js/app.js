@@ -35,7 +35,9 @@ class Game {
       })
     })
     console.log(boardArray)
-    this.init() //this doesn't work 
+    //this.init() //this doesn't work 
+    body.style.backgroundColor = 'grey' 
+    body.style.backgroundImage = "radial-gradient(circle, rgba(255, 255, 255, 0.515), rgba(128, 128, 128, 0.618), rgba(169, 169, 169, 0.029)"
   }
 
   constructPiecesArray(){
