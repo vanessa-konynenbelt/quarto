@@ -214,22 +214,22 @@ class PieceInfo {
 const critArray = ['color', 'height', 'top', 'shape']
 
 const pieceInfoArray = [
-  new PieceInfo('dark', 'tall', 'flat', 'circle'),
-  new PieceInfo('dark', 'tall', 'flat', 'square'),
-  new PieceInfo('dark', 'tall', 'indent', 'circle'),
-  new PieceInfo('dark', 'tall', 'indent', 'square'),
   new PieceInfo('dark', 'short', 'flat', 'circle'),
   new PieceInfo('dark', 'short', 'flat', 'square'),
   new PieceInfo('dark', 'short', 'indent', 'circle'),
   new PieceInfo('dark', 'short', 'indent', 'square'),
-  new PieceInfo('light', 'tall', 'flat', 'circle'),
-  new PieceInfo('light', 'tall', 'flat', 'square'),
-  new PieceInfo('light', 'tall', 'indent', 'circle'),
-  new PieceInfo('light', 'tall', 'indent', 'square'),
+  new PieceInfo('dark', 'tall', 'flat', 'circle'),
+  new PieceInfo('dark', 'tall', 'flat', 'square'),
+  new PieceInfo('dark', 'tall', 'indent', 'circle'),
+  new PieceInfo('dark', 'tall', 'indent', 'square'),
   new PieceInfo('light', 'short', 'flat', 'circle'),
   new PieceInfo('light', 'short', 'flat', 'square'),
   new PieceInfo('light', 'short', 'indent', 'circle'),
   new PieceInfo('light', 'short', 'indent', 'square'),
+  new PieceInfo('light', 'tall', 'flat', 'circle'),
+  new PieceInfo('light', 'tall', 'flat', 'square'),
+  new PieceInfo('light', 'tall', 'indent', 'circle'),
+  new PieceInfo('light', 'tall', 'indent', 'square'),
 ]
 
 const foursArray = [
