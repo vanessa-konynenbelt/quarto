@@ -1,6 +1,6 @@
 # Quarto
 
-![Quarto game on start](https://minecat.davidstinson.dev/assets/images/minecat.jpeg)
+![Quarto game on start]()
 
 Quarto is an impartial two-player board game invented by Swiss mathematician, Blaise Muller. The objective of the game is to get 4 pieces in a row on a 4x4 board using a combination of 16 unique pieces. Each piece is either: 
 
@@ -31,13 +31,10 @@ The game starts by player 1 choosing a piece for player 2. Player 2 then lays th
 
 ## Ice Box Items 
 
-- [x] Add functionality to let user choose rows, columns, and number of bombs
-- [x] Font design
-- [x] Halo around fonts
-- [x] Dark Mode
-- [x] Fix flag display
-- [ ] Add flags on touchscreen device
-- [ ] Accessibility features (keyboard input, colorblind settings)
-- [x] Confetti!
-- [ ] Explosion Animations
-- [x] Sound
+- [ ] Re-select piece before placing
+- [ ] Return placed piece on click
+- [ ] Dark mode
+- [ ] Dark Mode
+- [ ] Sounds
+- [ ] Animation 
+- [ ] Show win by trait
