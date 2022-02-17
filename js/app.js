@@ -1,13 +1,13 @@
 //Vars
 let boardArray = []
 let player = true //p1 = true, p2 = false
-
+let flag = true
 //Classes _________________________________
 
 class Game {
   constructor(){
     this.init()
-    this.unusedPieces = this.constructPiecesArray()
+    this.constructPiecesArray()
     this.board = this.constructBoard()
   }
    message = document.getElementById('msg')
@@ -41,8 +41,7 @@ class Game {
           }else{
             piece.div.classList.add('light-indent') 
           }
-        }
-      
+        }  
       }if(i===1){
         piece.div.pieceInfo.height === 'tall' ? piece.div.classList.add('tall') : piece.div.classList.add('short')
       }if(i===2){
@@ -53,16 +52,25 @@ class Game {
 
   constructBoard(){
     let grid = document.getElementById('grid')
+    let grid2 = document.getElementById('grid2')
+
     for(let i=0; i<16; i++){
-      let cell = new Cell(new PieceInfo('none', 'none', 'none', 'none'),)
-      grid.appendChild(cell.div)
+      //overlayed listener cells 
+      let cell = new Cell(new PieceInfo('none', 'none', 'none', 'none'))
       boardArray.push(cell.div)
+      grid.appendChild(cell.div)
+      cell.div.classList.add('cell')
+
+      //static white cell board 
+      let whiteCell = document.createElement('div')
+      whiteCell.classList.add('whiteCell') 
+      grid2.appendChild(whiteCell)
     }
     return boardArray
   }
+
   setActivePiece(activePiece){
     this.activePiece = activePiece
-    //this.activePiece.style.visibility = 'hidden' //... this works
   }
 
   checkWin(){
@@ -74,7 +82,8 @@ class Game {
           this.board[array[1]].pieceInfo[crit] === this.board[array[2]].pieceInfo[crit] && this.board[array[1]].pieceInfo[crit] !== 'none' && 
           this.board[array[2]].pieceInfo[crit] !== 'none' &&
           this.board[array[2]].pieceInfo[crit] === this.board[array[3]].pieceInfo[crit] && this.board[array[3]].pieceInfo[crit] !== 'none'){
-           this.message.textContent = 'Player X wins!'
+            player ? game.message.textContent = 'Player 1 wins!' : game.message.textContent = 'Player 2 wins!'
+            confetti.start(2000)
         }
       })
     })
@@ -88,10 +97,10 @@ class Piece {
     this.div.addEventListener('click', this.select)
   }
   select(){ //'this' refers to piece.div
+    flag = true
     game.setActivePiece(this)
     this.classList.add('active')
-    console.log(`active piece is`)
-    console.log(this)
+    console.log(game.activePiece)
     player = !player
     player ? game.message.textContent = 'Player 1 place selected' : game.message.textContent = 'Player 2 place selected'
   }
@@ -100,24 +109,21 @@ class Piece {
 class Cell {
   constructor(pieceInfo){ //'this' refers to cell
     this.div = document.createElement('div')
-    this.div.className = 'cell'
     this.div.pieceInfo = pieceInfo
     this.div.addEventListener('click', this.place)
   }
   place(){ //'this' refers to cell.div
-    console.log(this.pieceInfo)
-    if(this.pieceInfo.color === 'none'){ //if cell is empty
-      this.className = game.activePiece.classList
-      this.pieceInfo = game.activePiece.pieceInfo 
-      this.classList.remove('active')
-      this.className += ' cell'   //'full-cell'
-      game.activePiece.style.visibility = 'hidden' //this doesn't work. Needs HELP
-      console.log('this is game active piece')
-      console.log(game.activePiece)
-
-      player ? game.message.textContent = 'Player 1 select a piece for Player 2' : game.message.textContent = 'Player 2 select a piece for Player 1'
+    if(flag === true){ //prohibit player from placing to the board before another piece is selected
+      if(this.pieceInfo.color === 'none'){ //if cell is empty
+        flag = false 
+        this.className = game.activePiece.classList 
+        this.pieceInfo = game.activePiece.pieceInfo 
+        this.classList.remove('active')  
+        game.activePiece.style.visibility = 'hidden'  
+        player ? game.message.textContent = 'Player 1 select a piece for Player 2' : game.message.textContent = 'Player 2 select a piece for Player 1'
+      }
+      game.checkWin()
     }
-    game.checkWin()
   }
 }
 

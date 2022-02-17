@@ -1,12 +1,14 @@
 h1 {
-  font-size: 60px;
+  font-size: 70px;
   text-align: center;
-  color: white
+  color: white;
+  font-family: 'Roboto', sans-serif;
 }
 p {
   font-size: 30px;
   color: white;
   margin: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 body{
   display: flex; 
@@ -18,14 +20,16 @@ body{
 }
 
 #bank {
-  margin: 20px;
   display: flex;
-  width: 100vh;
-  height: 100vh;
+  flex-wrap: wrap;
   justify-content: center; 
   align-content: center;
 }
 
+#parent{
+  display: grid;
+  position: relative; 
+}
 #grid {
   border: 1px solid white;
   display: grid;
@@ -35,62 +39,83 @@ body{
   grid-gap: 1em;
   padding: 1em;
   margin: 80px;
-  height: 50vh; 
-  width: 50vh;
+  height: 860px; 
+  width: 860px;
+  position: relative;
+  z-index: 1; 
   /* transform: rotate(45deg) */
 }
 
+#grid2 {
+  border: 1px solid white;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: auto auto auto auto; 
+  grid-gap: 1em;
+  padding: 1em;
+  margin: 80px;
+  height: 860px; 
+  width: 860px;
+  position: absolute;
+  /* transform: rotate(45deg) */
+}
+
+.whiteCell {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px; 
+  background-color: white;
+  z-index: -1;
+  position: relative; 
+  background: #e0e0e0;
+  box-shadow: inset -34px -34px 86px #bebebe,
+            inset 34px 34px 86px #ffffff;
+}
+.cell {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;  
+}
 .dark-flat{
-  border: 1px solid black;
-  margin: 5px;
+  border: 2px solid rgb(0, 49, 128);
   background-color: rgb(0, 49, 128);
 }
 .dark-indent{
-  border: 1px solid black;
-  margin: 5px;
+  border: 2px solid rgb(0, 49, 128);
   background: repeating-linear-gradient( 90deg, #fff, #fff 5px, rgb(0, 49, 128) 5px, rgb(0, 49, 128) 12px);
 }
 .light-flat{
-  border: 1px solid black;
-  margin: 5px;
-  background-color:red
+  border: 2px solid rgb(162, 0, 0);
+  background-color: rgb(162, 0, 0)
 }
 .light-indent{
-  border: 1px solid black;
-  margin: 5px;
-  background: repeating-linear-gradient( 90deg, #fff, #fff 5px, red 5px, skyblue 12px);
+  border: 2px solid rgb(162, 0, 0);
+  background: repeating-linear-gradient( 90deg, #fff, #fff 5px, rgb(162, 0, 0) 5px, skyblue 12px);
 }
 .tall{
-  display: flex;
-  justify-content: center;
-  align-content: center;
   width: 80px;
   height: 80px;
+  margin: 60px;
+  z-index: 100; 
+  position: relative; 
 }
 .short{
-  display: flex; 
-  justify-content: center;
-  align-content: center;
   width: 50px;
   height: 50px;
+  margin: 75px;
+  z-index: 100; 
+  position: relative; 
 }
 .circle{
-  margin: 5px;
   border-radius: 50%;
+  z-index: 10px;
 }
 .square{
-  margin: 5px;
   border-radius: 0%;
 }
 
 .active {
-  border: 4px solid rgb(10, 232, 58);
+  border: 5px solid rgb(37, 230, 8);
 }
 
-.cell {
-  border: 1px solid black;
-  border-radius: 50%;
-  height: 10vh;
-  width: 10vh; 
-  background-color: white;
-}
