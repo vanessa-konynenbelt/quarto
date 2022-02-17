@@ -14,16 +14,22 @@ class Game {
 
   init(){ 
     this.message.textContent = 'Player 1 select a piece for Player 2'
+    this.message.style.color = 'dark orange'
   }
 
   constructPiecesArray(){
-    let bank = document.getElementById('bank')
-    for(let i=0; i<16; i++){
+    let redBank = document.getElementById('red-bank')
+    let blueBank = document.getElementById('blue-bank')
+    for(let i=0; i<8; i++){
       let piece = new Piece(pieceInfoArray[i])
       this.stylePieces(piece)
-      bank.appendChild(piece.div)
+      redBank.appendChild(piece.div)
     }
-    return bank
+    for(let i=8; i<16; i++){
+      let piece = new Piece(pieceInfoArray[i])
+      this.stylePieces(piece)
+      blueBank.appendChild(piece.div)
+    }
   }
 
   stylePieces(piece){

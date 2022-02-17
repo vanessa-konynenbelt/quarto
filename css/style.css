@@ -1,11 +1,11 @@
 h1 {
-  font-size: 70px;
+  font-size: 100px;
   text-align: center;
   color: white;
   font-family: 'Roboto', sans-serif;
 }
 p {
-  font-size: 30px;
+  font-size: 50px;
   color: white;
   margin: 20px;
   font-family: 'Roboto', sans-serif;
@@ -17,9 +17,10 @@ body{
   align-items: center;
   justify-content: center;
   background-color: grey;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.303), rgba(128, 128, 128, 0.618), rgba(169, 169, 169, 0.029));
 }
 
-#bank {
+.bank {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; 
@@ -27,8 +28,13 @@ body{
 }
 
 #parent{
+  margin: 20px;
   display: grid;
   position: relative; 
+  border: 1px solid white;
+  border-radius: 50%;
+  height: 1270px; 
+  width: 1270px;
 }
 #grid {
   border: 1px solid white;
@@ -38,15 +44,15 @@ body{
   grid-template-columns: auto auto auto auto; 
   grid-gap: 1em;
   padding: 1em;
-  margin: 80px;
+  margin: 188px 0 0 188px;
   height: 860px; 
   width: 860px;
   position: relative;
   z-index: 1; 
-  /* transform: rotate(45deg) */
 }
 
 #grid2 {
+  display: grid;
   border: 1px solid white;
   display: grid;
   justify-content: center;
@@ -54,11 +60,10 @@ body{
   grid-template-columns: auto auto auto auto; 
   grid-gap: 1em;
   padding: 1em;
-  margin: 80px;
+  margin: 188px 0 0 188px;
   height: 860px; 
   width: 860px;
   position: absolute;
-  /* transform: rotate(45deg) */
 }
 
 .whiteCell {
@@ -91,7 +96,7 @@ body{
 }
 .light-indent{
   border: 2px solid rgb(162, 0, 0);
-  background: repeating-linear-gradient( 90deg, #fff, #fff 5px, rgb(162, 0, 0) 5px, skyblue 12px);
+  background: repeating-linear-gradient( 90deg, #fff, #fff 5px, rgb(162, 0, 0) 5px, rgb(162, 0, 0) 12px);
 }
 .tall{
   width: 80px;
