@@ -1,5 +1,6 @@
 //Vars
 let boardArray = []
+let usedPieces  =  []
 let player = true //p1 = true, p2 = false
 let flag = true
 
@@ -28,16 +29,23 @@ class Game {
   }
 
   clear(){
-    boardArray.forEach(el => { 
-      el.removeAttribute('class') //clear styling
+    boardArray.forEach(el => { //restore board
+      el.removeAttribute('class') 
+      //console.log(el)
+      el.classList.add('cell')
       critArray.forEach(crit=> {
-        el.pieceInfo[crit] = 'none' //clear info 
+        el.pieceInfo[crit] = 'none' 
       })
     })
+    usedPieces.forEach(piece=> { //restore bank
+      piece.style.visibility = 'visible'
+      piece.classList.remove('active') 
+    })
+    console.log('usedPieces')
+    console.log(usedPieces)
+    usedPieces = []
     console.log(boardArray)
     game.init()
-    body.style.backgroundColor = 'grey' 
-    body.style.backgroundImage = "radial-gradient(circle, rgba(255, 255, 255, 0.515), rgba(128, 128, 128, 0.618), rgba(169, 169, 169, 0.029)"
   }
 
   constructPiecesArray(){
@@ -98,6 +106,11 @@ class Game {
     this.activePiece = activePiece
   }
 
+  setUsedPiece(usedPiece){
+    this.usedPiece = usedPiece
+    usedPieces.push(this.usedPiece)
+  }
+
   checkWin(){
     foursArray.forEach((array) =>{
       critArray.forEach(crit =>{
@@ -116,21 +129,31 @@ class Game {
     })
   }
 
+  checkTie(){
+    if(usedPieces.length === 16){
+      message.innerHTML  =  'Tie!'
+    }
+  }
+
   displayWin(){
     flag = false
     console.log(boardArray)
     if(player){
       message.innerHTML = '<span class ="p1">Player 1</span> wins!' 
-      body.style.backgroundColor = 'yellow' 
-      body.style.backgroundImage = "radial-gradient(circle, rgba(255, 255, 118, 0.933), rgba(255, 255, 147, 0.652), rgba(255, 255, 0, 0.632))"
     }else{
       message.innerHTML = '<span class = "p2">Player 2</span> wins!'
-      body.style.backgroundColor = 'rgb(8, 255, 255)' 
-      body.style.backgroundImage = "radial-gradient(circle, rgb(130, 252, 252), rgb(128, 255, 255), rgb(49, 177, 177))"
     }
     replay.style.visibility= 'visible'
     replay.addEventListener('click', this.clear)
     confetti.start(4000)
+  }
+  removeFromBank(){
+    game.setUsedPiece(game.activePiece)
+    game.usedPiece.style.visibility =  'hidden'
+  }
+  
+  displayMessage(){
+    player ? message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
   }
 }
 
@@ -143,6 +166,8 @@ class Piece {
   select(){ //'this' refers to piece.div
     flag = true
     game.setActivePiece(this)
+    console.log('active piece')
+    console.log(this)
     this.classList.add('active')
     player = !player
     player ? message.innerHTML = '<span class="p1">Player 1</span> place selected' : message.innerHTML = '<span class="p2">Player 2</span> place selected'
@@ -154,19 +179,23 @@ class Cell {
   constructor(pieceInfo){ //'this' refers to cell
     this.div = document.createElement('div')
     this.div.pieceInfo = pieceInfo
-    this.div.addEventListener('click', this.place)
+    this.div.addEventListener('click', this.placeOnBoard)
   }
-  place(){ //'this' refers to cell.div
+  placeOnBoard(){ //'this' refers to cell.div
+    console.log('clicked')
+    console.log(flag)
+    console.log(this)
     if(flag === true){ //prohibit player from placing to the board before another piece is selected
       if(this.pieceInfo.color === 'none'){ //if cell is empty
         flag = false 
         this.className = game.activePiece.classList 
         this.pieceInfo = game.activePiece.pieceInfo 
         this.classList.remove('active')  
-        game.activePiece.style.visibility = 'hidden'  
-        player ? message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
+        game.removeFromBank()
+        game.displayMessage()
       }
       game.checkWin()
+      game.checkTie()
     }
   }
 }
