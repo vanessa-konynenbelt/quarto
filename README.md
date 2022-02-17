@@ -1,6 +1,6 @@
 # Quarto
 
-![Quarto game on start](https://github.com/vanessa-konynenbelt/quarto/blob/main/quarto_demo.png)
+![Quarto game on start](https://i.imgur.com/MXMPVNY.png)
 
 Quarto is an impartial two-player board game invented by Swiss mathematician, Blaise Muller. The objective of the game is to get 4 pieces in a row on a 4x4 board using a combination of 16 unique pieces. Each piece is either: 
 
