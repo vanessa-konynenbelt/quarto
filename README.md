@@ -40,4 +40,5 @@ The game starts by player 1 choosing a piece for player 2. Player 2 then lays th
 - [ ] Dark mode
 - [ ] Sounds
 - [ ] Animation 
+- [ ] Scale to mobile
 - [ ] Show win by trait
