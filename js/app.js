@@ -168,8 +168,12 @@ class Piece {
     this.div.addEventListener('click', this.select)
   }
   select(){ //'this' refers to piece.div
-      if(!flag){ //if placed, switch turns
+      if(flag === false){ //if placed, switch turns
         player = !player
+        game.setActivePiece(this)
+        this.classList.add('active')
+        console.log('active piece')
+        console.log(this)
       }else{ //if not placed, remove styling from last and set new active piece
         console.log(game.activePiece)
         if(game.activePiece){
@@ -182,6 +186,7 @@ class Piece {
       }
       player ? message.innerHTML = '<span class="p1">Player 1</span> place selected' : message.innerHTML = '<span class="p2">Player 2</span> place selected'
       flag = true
+      select = true
   }
 }
 
@@ -199,6 +204,7 @@ class Cell {
     if(select === true){ //prohibit player from placing to the board before another piece is selected
       if(this.pieceInfo.color === 'none'){ //if cell is empty
         flag = false 
+        select = false 
         this.className = game.activePiece.classList 
         this.pieceInfo = game.activePiece.pieceInfo 
         this.classList.remove('active')  
