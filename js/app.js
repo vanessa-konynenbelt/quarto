@@ -34,37 +34,6 @@ class Game {
     play.style.visibility= 'hidden'
   }
 
-  clear(){
-    // console.log('board before clear')
-    // console.log(boardArray)
-
-    console.log('used pieces before clear')
-    console.log(usedPieces)
-
-    usedPieces.forEach(piece=> { //restore bank
-      piece.style.visibility = 'visible'
-      piece.classList.remove('active') 
-    })
-
-    boardArray.forEach(el=> { //restore board
-      el.removeAttribute('class') 
-      el.classList.add('cell')
-      // critArray.forEach(crit=> {
-      //   el.pieceInfo[crit] = 'none' 
-      // })
-    })
-
-    //usedPieces = []
-    message.innerHTML= '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>'
-    replay.style.visibility= 'hidden'
-
-    console.log('board after clear')
-    console.log(boardArray)
-
-    console.log('used pieces after clear')
-    console.log(usedPieces)
-  }
-
   constructPiecesArray(){
     for(let i=0; i<8; i++){
       let piece = new Piece(pieceInfoArray[i])
@@ -120,9 +89,6 @@ class Game {
   }
 
   checkWin(){
-    console.log('board at checkwin')
-    console.log(boardArray)
-
     foursArray.forEach((array) =>{
       critArray.forEach(crit =>{
         if(
@@ -151,11 +117,8 @@ class Game {
       confetti.color('teal')
       confetti.start(4000)
     }
-    // console.log('in display win, used pieces')
-    // console.log(usedPieces)
-    
     replay.style.visibility= 'visible'
-    replay.addEventListener('click', this.clear)
+    replay.addEventListener('click', window.location.reload.bind(window.location))
   }
 
   checkTie(){
@@ -200,7 +163,7 @@ class Piece {
         } 
         game.setActivePiece(this)
       }
-      player ? message.innerHTML = '<span class="p1">Player 1</span> place selected' : message.innerHTML = '<span class="p2">Player 2</span> place selected'
+      player ? message.innerHTML = '<span class="p2">Player 2</span> place selected' : message.innerHTML = '<span class="p1">Player 1</span> place selected'
       flag = true
   }
 }
@@ -227,11 +190,11 @@ class Cell {
         game.setUsedPiece(game.activePiece)
         game.activePiece.style.visibility = 'hidden' //visibily removed from bank
 
-        player ? message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
+        player ? message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>': message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' 
       }
+      game.checkWin()
+      game.checkTie()
     }
-    game.checkWin()
-    game.checkTie()
   }
 }
 

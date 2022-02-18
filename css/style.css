@@ -99,7 +99,7 @@ body{
   position: relative; 
   background: white;
   background: linear-gradient(145deg, #c5c5c5, #eaeaea);
-  /* box-shadow:  45px 45px 90px #919191, */
+  box-shadow:  45px 45px 90px #919191,
              -45px -45px 90px #ffffff;
 }
 .cell {
