@@ -1,7 +1,7 @@
 //Vars
 let boardArray = []
 let usedPieces  =  []
-let player = true //p1 = true, p2 = false
+let player = true 
 let flag = true
 
 
@@ -109,12 +109,12 @@ class Game {
   displayWin(){
     flag = false
     if(player){
-      message.innerHTML = '<span class ="p1">Player 1</span> wins!' 
-      confetti.color('yellow')
-      confetti.start(4000)
-    }else{
       message.innerHTML = '<span class = "p2">Player 2</span> wins!'
       confetti.color('teal')
+      confetti.start(4000)
+    }else{
+      message.innerHTML = '<span class ="p1">Player 1</span> wins!' 
+      confetti.color('yellow')
       confetti.start(4000)
     }
     replay.style.visibility= 'visible'
