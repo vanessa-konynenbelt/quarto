@@ -25,6 +25,8 @@ var confetti = {
 	confetti.isPaused = isConfettiPaused;
 	confetti.remove = removeConfetti;
 	confetti.isRunning = isConfettiRunning;
+	confetti.color = changeConfettiColor;
+
 	var supportsAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
 	var colors = ["rgba(30,144,255,", "rgba(107,142,35,", "rgba(255,215,0,", "rgba(255,192,203,", "rgba(106,90,205,", "rgba(173,216,230,", "rgba(238,130,238,", "rgba(152,251,152,", "rgba(70,130,180,", "rgba(244,164,96,", "rgba(210,105,30,", "rgba(220,20,60,"];
 	var streamingConfetti = false;
@@ -34,6 +36,23 @@ var confetti = {
 	var particles = [];
 	var waveAngle = 0;
 	var context = null;
+
+	function changeConfettiColor(color){
+		if(color === 'yellow'){
+			colors = ["rgba(244,222,77,", "rgba(255,215,0,", "rgba(255,215,0,", "rgba(255,183,26,", "rgba(239,150,0,", 
+			"rgba(244,222,77,", "rgba(255,215,0,", "rgba(255,215,0,", "rgba(255,183,26,", "rgba(239,150,0,", "rgba(244,222,77,", "rgba(255,215,0,"]
+		}
+		if(color === 'teal'){
+			colors = ["rgba(178,216,216,", "rgba(102,178,178,", "rgba(0,128,128,", "rgba(0,102,102,", "rgba(0,76,76,", 
+								"rgba(178,216,216,", "rgba(102,178,178,", "rgba(0,128,128,", "rgba(0,102,102,", "rgba(0,76,76,",
+								"rgba(178,216,216,", "rgba(102,178,178,"]
+		}
+		if(color === 'grey'){
+			colors = ["rgba(238,238,221,", "rgba(221,221,22,", "rgba(204,204,204,", "rgba(187,187,187,", "rgba(170,170,170,", 
+			"rgba(238,238,221,", "rgba(221,221,221,", "rgba(204,204,204,", "rgba(187,187,187,", "rgba(170,170,170,",
+			"rgba(238,238,221,", "rgba(221,221,221,"]
+		}
+	}
 
 	function resetParticle(particle, width, height) {
 		particle.color = colors[(Math.random() * colors.length) | 0] + (confetti.alpha + ")");

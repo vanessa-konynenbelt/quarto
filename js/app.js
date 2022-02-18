@@ -3,7 +3,7 @@ let boardArray = []
 let usedPieces  =  []
 let player = true //p1 = true, p2 = false
 let flag = true
-let select = true
+
 
 //Cached Elements________________
 let message = document.getElementById('msg')
@@ -11,42 +11,58 @@ let redBank = document.getElementById('red-bank')
 let blueBank = document.getElementById('blue-bank')
 let overlay = document.getElementById('overlay')
 let board = document.getElementById('board')
+let play = document.getElementById('play')
 let replay = document.getElementById('replay')
-let body = document.querySelector('body')
 
 
 //Classes _________________________________
 class Game {
   constructor(){
-    this.init()
+    this.start()
     this.constructPiecesArray()
     this.constructBoard()
     this.constructOverlay()
   }
-
-  init(){ 
-    message.innerHTML= '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>'
+  start(){
+    message.innerHTML= 'Get 4 in a row of any type: shape, size, color, or top. Good luck!'
+    play.addEventListener('click', this.init)
     replay.style.visibility= 'hidden'
   }
 
+  init(){ 
+    message.innerHTML= '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>'
+    play.style.visibility= 'hidden'
+  }
+
   clear(){
-    boardArray.forEach(el => { //restore board
-      el.removeAttribute('class') 
-      //console.log(el)
-      el.classList.add('cell')
-      critArray.forEach(crit=> {
-        el.pieceInfo[crit] = 'none' 
-      })
-    })
+    // console.log('board before clear')
+    // console.log(boardArray)
+
+    console.log('used pieces before clear')
+    console.log(usedPieces)
+
     usedPieces.forEach(piece=> { //restore bank
       piece.style.visibility = 'visible'
       piece.classList.remove('active') 
     })
-    console.log('usedPieces')
-    console.log(usedPieces)
-    usedPieces = []
+
+    boardArray.forEach(el=> { //restore board
+      el.removeAttribute('class') 
+      el.classList.add('cell')
+      // critArray.forEach(crit=> {
+      //   el.pieceInfo[crit] = 'none' 
+      // })
+    })
+
+    //usedPieces = []
+    message.innerHTML= '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>'
+    replay.style.visibility= 'hidden'
+
+    console.log('board after clear')
     console.log(boardArray)
-    game.init()
+
+    console.log('used pieces after clear')
+    console.log(usedPieces)
   }
 
   constructPiecesArray(){
@@ -103,16 +119,10 @@ class Game {
     }
   }
 
-  setActivePiece(activePiece){
-    this.activePiece = activePiece
-  }
-
-  setUsedPiece(usedPiece){
-    this.usedPiece = usedPiece
-    usedPieces.push(this.usedPiece)
-  }
-
   checkWin(){
+    console.log('board at checkwin')
+    console.log(boardArray)
+
     foursArray.forEach((array) =>{
       critArray.forEach(crit =>{
         if(
@@ -130,34 +140,46 @@ class Game {
     })
   }
 
+  displayWin(){
+    flag = false
+    if(player){
+      message.innerHTML = '<span class ="p1">Player 1</span> wins!' 
+      confetti.color('yellow')
+      confetti.start(4000)
+    }else{
+      message.innerHTML = '<span class = "p2">Player 2</span> wins!'
+      confetti.color('teal')
+      confetti.start(4000)
+    }
+    // console.log('in display win, used pieces')
+    // console.log(usedPieces)
+    
+    replay.style.visibility= 'visible'
+    replay.addEventListener('click', this.clear)
+  }
+
   checkTie(){
     if(usedPieces.length === 16){
       message.innerHTML  =  "It's a tie!"
       replay.style.visibility= 'visible'
       replay.addEventListener('click', this.clear)
+      confetti.color('grey')
       confetti.start(4000)
     }
   }
 
-  displayWin(){
-    flag = false
-    console.log(boardArray)
-    if(player){
-      message.innerHTML = '<span class ="p1">Player 1</span> wins!' 
-    }else{
-      message.innerHTML = '<span class = "p2">Player 2</span> wins!'
-    }
-    replay.style.visibility= 'visible'
-    replay.addEventListener('click', this.clear)
-    confetti.start(4000)
+  setActivePiece(activePiece){
+    this.activePiece = activePiece
+    this.activePiece.classList.add('active')
+
+    console.log('active piece info')
+    console.log(this.activePiece.pieceInfo)
   }
-  removeFromBank(){
-    game.setUsedPiece(game.activePiece)
-    game.usedPiece.style.visibility =  'hidden'
-  }
-  
-  displayMessage(){
-    player ? message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
+
+  setUsedPiece(usedPiece){
+    this.usedPiece = usedPiece
+    usedPieces.push(this.usedPiece)
+    console.log(usedPieces)
   }
 }
 
@@ -168,25 +190,18 @@ class Piece {
     this.div.addEventListener('click', this.select)
   }
   select(){ //'this' refers to piece.div
+  play.style.visibility= 'hidden'
       if(flag === false){ //if placed, switch turns
         player = !player
         game.setActivePiece(this)
-        this.classList.add('active')
-        console.log('active piece')
-        console.log(this)
       }else{ //if not placed, remove styling from last and set new active piece
-        console.log(game.activePiece)
         if(game.activePiece){
           game.activePiece.classList.remove('active')
         } 
         game.setActivePiece(this)
-        this.classList.add('active')
-        console.log('active piece')
-        console.log(this)
       }
       player ? message.innerHTML = '<span class="p1">Player 1</span> place selected' : message.innerHTML = '<span class="p2">Player 2</span> place selected'
       flag = true
-      select = true
   }
 }
 
@@ -198,24 +213,28 @@ class Cell {
     this.div.addEventListener('click', this.placeOnBoard)
   }
   placeOnBoard(){ //'this' refers to cell.div
-    console.log('clicked')
-    console.log(flag)
-    console.log(this)
-    if(select === true){ //prohibit player from placing to the board before another piece is selected
+    if(flag === true){ //prohibit player from placing to the board before another piece is selected
       if(this.pieceInfo.color === 'none'){ //if cell is empty
-        flag = false 
-        select = false 
+        flag = false  
         this.className = game.activePiece.classList 
         this.pieceInfo = game.activePiece.pieceInfo 
         this.classList.remove('active')  
-        game.removeFromBank()
-        game.displayMessage()
+
+        console.log('in place on board, active piece info')
+        console.log(game.activePiece)
+        console.log(game.activePiece.pieceInfo)
+
+        game.setUsedPiece(game.activePiece)
+        game.activePiece.style.visibility = 'hidden' //visibily removed from bank
+
+        player ? message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' : message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>'
       }
-      game.checkWin()
-      game.checkTie()
     }
+    game.checkWin()
+    game.checkTie()
   }
 }
+
 
 class PieceInfo {
   constructor(color, height, top, shape){
@@ -261,4 +280,4 @@ const foursArray = [
   [3, 6, 9, 12],
 ]
 
-var game = new Game()
+const game = new Game()
