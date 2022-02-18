@@ -1,6 +1,6 @@
 # Quarto
 
-![Quarto game on start](blob:https://imgur.com/9bb309e7-c3f7-4d35-807f-46fe865e025f)
+![Quarto game on start](https://i.imgur.com/TGw5PEM.png)
 
 Quarto is an impartial two-player board game invented by Swiss mathematician, Blaise Muller. The objective of the game is to get 4 pieces in a row on a 4x4 board using a combination of 16 unique pieces. Each piece is either: 
 
@@ -37,10 +37,12 @@ The game starts by player 1 choosing a piece for player 2. Player 2 then lays th
 
 ## Ice Box Items 
 
-- [ ] Re-select piece before placing
-- [ ] Return placed piece on click
-- [ ] Dark mode
-- [ ] Sounds
-- [ ] Animation 
+- [x] Re-select piece before placing
 - [ ] Scale to mobile
 - [ ] Show win by trait
+- [ ] Dark mode
+- [ ] Sounds
+- [ ] Drag items
+- [ ] Change board choice after selection
+
+
