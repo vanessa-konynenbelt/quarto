@@ -44,5 +44,6 @@ The game starts by player 1 choosing a piece for player 2. Player 2 then lays th
 - [ ] Sounds
 - [ ] Drag items
 - [ ] Change board choice after selection
+- [ ] Add AI
 
 
