@@ -125,9 +125,9 @@ class Game {
     if(usedPieces.length === 16){
       message.innerHTML  =  "It's a tie!"
       replay.style.visibility= 'visible'
-      replay.addEventListener('click', this.clear)
       confetti.color('grey')
       confetti.start(4000)
+      replay.addEventListener('click', window.location.reload.bind(window.location))
     }
   }
 
@@ -197,7 +197,6 @@ class Cell {
     }
   }
 }
-
 
 class PieceInfo {
   constructor(color, height, top, shape){
