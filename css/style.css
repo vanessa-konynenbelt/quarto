@@ -26,7 +26,6 @@ body{
   align-items: center;
   justify-content: center;
   background-color: black;
-  background-image: radial-gradient(circle, rgb(133, 133, 133), rgba(255, 255, 255, 0.515), rgba(22, 22, 22, 0.029));
 }
 
 .bank {
@@ -99,8 +98,7 @@ body{
   position: relative; 
   background: white;
   background: linear-gradient(145deg, #c5c5c5, #eaeaea);
-  box-shadow:  45px 45px 90px #919191,
-             -45px -45px 90px #ffffff;
+  box-shadow:  45px 45px 800px #a2a0a0, -45px -45px 800px #d7d7d7;
 }
 .cell {
   border-radius: 50%;
