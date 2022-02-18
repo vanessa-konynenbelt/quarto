@@ -134,15 +134,11 @@ class Game {
   setActivePiece(activePiece){
     this.activePiece = activePiece
     this.activePiece.classList.add('active')
-
-    console.log('active piece info')
-    console.log(this.activePiece.pieceInfo)
   }
 
   setUsedPiece(usedPiece){
     this.usedPiece = usedPiece
     usedPieces.push(this.usedPiece)
-    console.log(usedPieces)
   }
 }
 
@@ -181,15 +177,9 @@ class Cell {
         flag = false  
         this.className = game.activePiece.classList 
         this.pieceInfo = game.activePiece.pieceInfo 
-        this.classList.remove('active')  
-
-        console.log('in place on board, active piece info')
-        console.log(game.activePiece)
-        console.log(game.activePiece.pieceInfo)
-
+        this.classList.remove('active') 
         game.setUsedPiece(game.activePiece)
         game.activePiece.style.visibility = 'hidden' //visibily removed from bank
-
         player ? message.innerHTML = '<span class ="p2">Player 2</span> select a piece for <span class ="p1">Player 1</span>': message.innerHTML = '<span class ="p1">Player 1</span> select a piece for <span class ="p2">Player 2</span>' 
       }
       game.checkWin()
