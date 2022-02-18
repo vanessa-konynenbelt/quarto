@@ -3,6 +3,7 @@ let boardArray = []
 let usedPieces  =  []
 let player = true //p1 = true, p2 = false
 let flag = true
+let select = true
 
 //Cached Elements________________
 let message = document.getElementById('msg')
@@ -131,7 +132,10 @@ class Game {
 
   checkTie(){
     if(usedPieces.length === 16){
-      message.innerHTML  =  'Tie!'
+      message.innerHTML  =  "It's a tie!"
+      replay.style.visibility= 'visible'
+      replay.addEventListener('click', this.clear)
+      confetti.start(4000)
     }
   }
 
@@ -164,13 +168,20 @@ class Piece {
     this.div.addEventListener('click', this.select)
   }
   select(){ //'this' refers to piece.div
-    flag = true
-    game.setActivePiece(this)
-    console.log('active piece')
-    console.log(this)
-    this.classList.add('active')
-    player = !player
-    player ? message.innerHTML = '<span class="p1">Player 1</span> place selected' : message.innerHTML = '<span class="p2">Player 2</span> place selected'
+      if(!flag){ //if placed, switch turns
+        player = !player
+      }else{ //if not placed, remove styling from last and set new active piece
+        console.log(game.activePiece)
+        if(game.activePiece){
+          game.activePiece.classList.remove('active')
+        } 
+        game.setActivePiece(this)
+        this.classList.add('active')
+        console.log('active piece')
+        console.log(this)
+      }
+      player ? message.innerHTML = '<span class="p1">Player 1</span> place selected' : message.innerHTML = '<span class="p2">Player 2</span> place selected'
+      flag = true
   }
 }
 
@@ -185,7 +196,7 @@ class Cell {
     console.log('clicked')
     console.log(flag)
     console.log(this)
-    if(flag === true){ //prohibit player from placing to the board before another piece is selected
+    if(select === true){ //prohibit player from placing to the board before another piece is selected
       if(this.pieceInfo.color === 'none'){ //if cell is empty
         flag = false 
         this.className = game.activePiece.classList 
@@ -199,7 +210,6 @@ class Cell {
     }
   }
 }
-
 
 class PieceInfo {
   constructor(color, height, top, shape){
